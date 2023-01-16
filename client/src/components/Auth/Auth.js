@@ -8,7 +8,7 @@ import Icon from "./icon.js";
 import { gapi } from "gapi-script";
 import { useDispatch  } from "react-redux";
 import { useHistory } from "react-router-dom";
-import dotenv from "dotenv";
+require('dotenv').config()
 
 const Auth = () => {
   const classes = useStyles(); 
@@ -20,7 +20,6 @@ const Auth = () => {
   const switchMode = ()=> {setIsSignUp(!isSignUp)};
   const dispatch =  useDispatch();
   const history = useHistory(); 
-  dotenv.config();
 
   const googleSuccessFunction = async(res)=> {
     const result = res?.profileObj;
@@ -43,10 +42,12 @@ const Auth = () => {
   
   gapi.load("client:auth2", () => {
     gapi.client.init({
-      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientId: process.env.REACT_APP_API_URL,
       plugin_name: "chat",
     });
   });
+
+
   
 
   const [showPassword, setShowPassword] = useState(false);
@@ -59,6 +60,7 @@ const Auth = () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon/>
         </Avatar>
+
         <Typography variant="h5"> {isSignUp ? "Sign Up": "Sign In"} </Typography>
         <form className={classes.form} onSubmit={handleSubmit} >
           <Grid container spacing={2}>
@@ -82,7 +84,7 @@ const Auth = () => {
             {isSignUp? "Sign Up" : "Sign In" }
           </Button>
           <GoogleLogin
-            clientId= {process.env.GOOGLE_CLIENT_ID}
+            clientId= {process.env.REACT_APP_API_URL}
             render={(renderProps)=> (
               <Button  className={classes.googleButton} color="primary"  fullWidth onClick={renderProps.onClick}  disabled = {renderProps.disabled}  startIcon = {<Icon/>}  variant="contained" > Google Sign In </Button>
             )}

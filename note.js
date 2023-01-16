@@ -1,3 +1,0 @@
-// JWT token
-// token authorisation
-
