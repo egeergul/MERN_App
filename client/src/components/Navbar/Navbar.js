@@ -5,6 +5,11 @@ import useStyles from "./styles.js";
 import decode from "jwt-decode";
 import memories from "../../images/memories.png"; 
 import { useDispatch } from "react-redux";
+import dotenv from "dotenv";
+
+
+dotenv.config();
+
 
 const Navbar = () => {
     const classes = useStyles();
