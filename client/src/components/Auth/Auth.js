@@ -8,13 +8,30 @@ import Icon from "./icon.js";
 import { gapi } from "gapi-script";
 import { useDispatch  } from "react-redux";
 import { useHistory } from "react-router-dom";
-require('dotenv').config()
+import {signup, signin} from '../../actions/auth.js';
+require('dotenv').config();
+
+const initialState = {firstName: "", lastName: "", email:"", password:"", confirmPassword: "" } ;
 
 const Auth = () => {
   const classes = useStyles(); 
   const [isSignUp, setIsSignUp] = useState(false);
-  const handleSubmit = ()=> {};
-  const handleChange  = ()=> {};
+
+  const [formData, setFormData] = useState(initialState);
+  const handleSubmit = (e)=> {
+    e.preventDefault();
+    console.log(formData);
+    if( isSignUp) {
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
+    }
+
+  };
+  const handleChange  = (e)=> {
+    setFormData({...formData, [e.target.name]: e.target.value})
+
+  };
   const handlePasswordShow  = ()=>  setShowPassword(! showPassword);
   const handleConfirmPasswordShow  = ()=>  setShowConfirmPassword(! showConfirmPassword);
   const switchMode = ()=> {setIsSignUp(!isSignUp)};
@@ -47,9 +64,6 @@ const Auth = () => {
     });
   });
 
-
-  
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -68,7 +82,7 @@ const Auth = () => {
               isSignUp && (
                 <>
                   <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half/>
-                  <Input name="firstName" label="First Name" handleChange={handleChange} half/>
+                  <Input name="lastName" label="Last Name" handleChange={handleChange} half/>
 
                 </>
               )
