@@ -25,7 +25,8 @@ const Home = () => {
   const [tags, setTags ]  =  useState([]);
   const searchPost = ()=> {
     if(search.trim() || tags) {
-      dispatch(getPostsBySearch({search, tags:tags.join(", ")}));
+      dispatch(getPostsBySearch({search, tags:tags.join(",")}));
+      history.push(`/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`);
     } else {
       history.push("/")
     }
@@ -39,9 +40,7 @@ const Home = () => {
   const handleAdd = (tag  )=> setTags([...tags, tag]);
   const handleDelete  = (tagToDelete  )=> setTags(tags.filter((tag)=>tag!== tagToDelete));
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+
   return (
     <Grow in>
       <Container maxWidth="xl" >
@@ -83,7 +82,7 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper  elevation={6} >
-              <Paginatation/>
+              <Paginatation page={page} />
 
             </Paper>
           </Grid>
