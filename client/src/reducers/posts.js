@@ -17,7 +17,7 @@ export default (state = [], action)=> {
         case DELETE:
             return state.filter((post)=> post._id !== action.payload );
         case FETCH_BY_SEARCH:
-            return {...state, posts: action.payload.data};
+            return {...state, posts: action.payload};
         default:
             return state;
             
