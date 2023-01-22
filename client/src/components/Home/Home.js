@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grow, Grid, Paper, AppBar, TextField } from "@material-ui/core";
+import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from "@material-ui/core";
+import ChipInput from 'material-ui-chip-input'
 import Posts from "../Posts/Posts.js";
 import Form from "../Form/Form.js";
 import useStyles from "./styles.js";
 import { useDispatch } from "react-redux";
-import { getPosts } from "../../actions/posts.js";
+import { getPosts, getPostsBySearch } from "../../actions/posts.js";
 import Paginatation from "../Pagination.js";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -20,8 +21,23 @@ const Home = () => {
   const history = useHistory();
   const page = query.get("page") || 1;
   const searchQuery =  query.get("searchQuery");
+  const [search, setSearch]  =  useState("");
+  const [tags, setTags ]  =  useState([]);
+  const searchPost = ()=> {
+    if(search.trim() || tags) {
+      dispatch(getPostsBySearch({search, tags:tags.join(", ")}));
+    } else {
+      history.push("/")
+    }
+  }
+  const handleKeyPress = (e)=> {
+     if(e.keyCode=== 13) {
+      //search Post 
 
-
+     }
+  }
+  const handleAdd = (tag  )=> setTags([...tags, tag]);
+  const handleDelete  = (tagToDelete  )=> setTags(tags.filter((tag)=>tag!== tagToDelete));
 
   useEffect(() => {
     dispatch(getPosts());
@@ -46,11 +62,22 @@ const Home = () => {
                 name="search"
                 variant="outlined"
                 label="Search Memories"
+                onKeyPress={handleKeyPress}
                 fullWidth
-                value="TEST"
-                onChange={()=>{}}
+                value={search}
+                onChange={(e)=>{setSearch(e.target.value)}}
               />
 
+              <ChipInput
+                 style={{margin: "10px 0 "}}
+                 value={tags}
+                 onAdd={handleAdd}
+                 onDelete={handleDelete}
+                 label="Search Tags"
+                 variant="outlined"
+              />
+
+              <Button color="primary" variant="contained" onClick={searchPost}>Search</Button>
 
 
             </AppBar>
