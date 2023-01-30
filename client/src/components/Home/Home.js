@@ -13,7 +13,7 @@ import Posts from "../Posts/Posts.js";
 import Form from "../Form/Form.js";
 import useStyles from "./styles.js";
 import { useDispatch } from "react-redux";
-import { getPosts, getPostsBySearch } from "../../actions/posts.js";
+import {  getPostsBySearch } from "../../actions/posts.js";
 import Paginatation from "../Pagination.js";
 import { useHistory, useLocation } from "react-router-dom";
 
