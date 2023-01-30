@@ -19,7 +19,7 @@ client side of the project, if you want the Google sign-in feature to work, you 
 The application can be installed and used by downloading the repository. 
 
 ## npm install
-The necessary dependencies can be downloaded with the npm install command.
+The necessary dependencies can be downloaded with the npm install command. You need to run this command under both the client and the server folders.
 
 ## npm start
-To run the application, run npm start command under both the client and the server folders.
+To run the application, run npm start command under both the client and the server folders. Prefer to start the server folder first.
