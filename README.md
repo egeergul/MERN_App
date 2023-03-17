@@ -1,6 +1,6 @@
 # MERN_exercise
 
-This is a project for me to learn the MERN stack. MERT stands for
+This is a project for me to learn the MERN stack. MERN stands for
 * MongoDB
 * Express
 * React
